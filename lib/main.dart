@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+// los creados
+// import 'package:componentes_flutter_app/src/pages/home_temp.dart';
+import 'package:componentes_flutter_app/src/pages/home_page.dart';
+
+
 // snippets -> mateapp + tab
 void main() => runApp(MyApp());
 
@@ -9,16 +14,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Componentes APP',
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Componentes'),
-        ),
-        body: Center(
-          child: Container(
-            child: Text('Hello World'),
-          ),
-        ),
-      ),
+      home: HomePage(),
+
+
     );
   }
 }
