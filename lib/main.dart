@@ -1,9 +1,10 @@
+
+
 import 'package:flutter/material.dart';
 
 // los creados
 // import 'package:componentes_flutter_app/src/pages/home_temp.dart';
 import 'package:componentes_flutter_app/src/pages/home_page.dart';
-
 
 // snippets -> mateapp + tab
 void main() => runApp(MyApp());
