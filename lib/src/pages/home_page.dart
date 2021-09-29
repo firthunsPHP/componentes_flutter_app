@@ -56,8 +56,10 @@ class HomePage extends StatelessWidget {
   List<Widget> _listaItems( List<dynamic>? data, BuildContext context){
 
     final List<Widget> opciones = [];
+
     if (data != null) {
       data.forEach((opt) {
+
         final widgetTemp = ListTile(
           title: Text(opt['texto']),
           leading:  getIcon(opt['icon']),
@@ -74,8 +76,10 @@ class HomePage extends StatelessWidget {
           },
         );
         //
-        opciones..add(widgetTemp)..add(Divider());
+        opciones..add( widgetTemp )
+                ..add( Divider() );
       });
+
     }
     return opciones;
   }
