@@ -13,40 +13,43 @@ class _InputPageState extends State<InputPage> {
   String _email  = '';
   String _fecha  = '';
 
-  String _opcionSeleccionada = 'Volar';
+  final String _opcionSeleccionada = 'Volar';
 
-  List<String> _poderes = ['Volar', 'Rayos X', 'Super Aliento', 'Super Fuerza'];
-
-  TextEditingController _inputFieldDateController = new TextEditingController();
+  final List<String> _poderes = ['Volar', 'Rayos X', 'Super Aliento', 'Super Fuerza'];
+// me permite controlar el valor de la fecha
+  final TextEditingController _inputFieldDateController =  TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Inputs de texto'),
+        title: const Text('Inputs de texto'),
       ),
       body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
         children: <Widget>[
           _crearInput(),
-          Divider(),
+          const Divider(),
           _crearEmail(),
           Divider(),
           _crearPassword(),
           Divider(),
           _crearFecha( context ),
           Divider(),
-          // _crearDropdown(),
+          _crearDropdown(),
           Divider(),
-          _crearPersona()
+          _crearPersona(),
+          Divider(),
+
         ],
       ),
     );
   }
 
-  //
+
   /// primer Método
   /// https://flutter.dev/docs/cookbook/forms/text-input
+  /// https://api.flutter.dev/flutter/material/InputBorder-class.html
   Widget _crearInput() {
 
     return TextField(
@@ -54,7 +57,7 @@ class _InputPageState extends State<InputPage> {
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20.0)
+          borderRadius: BorderRadius.circular(25.0)
         ),
         counter: Text('Letras ${ _nombre.length }'),
         hintText: 'Nombre de la persona',
@@ -71,7 +74,7 @@ class _InputPageState extends State<InputPage> {
     );
 
   }
-
+  /// 3.
   Widget _crearEmail() {
 
     return TextField(
@@ -82,8 +85,8 @@ class _InputPageState extends State<InputPage> {
         ),
         hintText: 'Email',
         labelText: 'Email',
-        suffixIcon: Icon( Icons.alternate_email ),
-        icon: Icon( Icons.email )
+        suffixIcon: const Icon( Icons.alternate_email ),
+        icon: const Icon( Icons.email )
       ),
       onChanged: (valor) =>setState(() {
         _email = valor;
@@ -91,7 +94,7 @@ class _InputPageState extends State<InputPage> {
     );
 
   }
-
+  /// 4.
   Widget _crearPassword(){
 
      return TextField(
@@ -111,23 +114,24 @@ class _InputPageState extends State<InputPage> {
     );
 
   }
-
-
+  //
+/// 5.
+  /// https://api.flutter.dev/flutter/dart-core/DateTime-class.html
   Widget _crearFecha( BuildContext context ) {
 
     return TextField(
       enableInteractiveSelection: false,
       controller: _inputFieldDateController,
       decoration: InputDecoration(
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20.0)
-        ),
-        hintText: 'Fecha de nacimiento',
-        labelText: 'Fecha de nacimiento',
-        suffixIcon: Icon( Icons.perm_contact_calendar ),
-        icon: Icon( Icons.calendar_today )
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20.0)
+          ),
+          hintText: 'Fecha de nacimiento',
+          labelText: 'Fecha de nacimiento',
+          suffixIcon: const Icon( Icons.perm_contact_calendar ),
+          icon: const Icon( Icons.calendar_today )
       ),
-      onTap: (){ 
+      onTap: (){
 
         FocusScope.of(context).requestFocus(new FocusNode());
         _selectDate( context );
@@ -137,71 +141,72 @@ class _InputPageState extends State<InputPage> {
 
   }
 
-  _selectDate(BuildContext context) async {
 
-    // DateTime picked = await showDatePicker(
-    //   context: context,
-    //   initialDate: new DateTime.now(),
-    //   firstDate: new DateTime(2018),
-    //   lastDate: new DateTime(2025),
-    //   locale: Locale('es', 'ES')
-    // );
 
-    // if ( picked != null ) {
-    //   setState(() {
-    //       _fecha = picked.toString();
-    //       _inputFieldDateController.text = _fecha;
-    //   });
-    // }
+  /// 6.
+  /// https://flutter.dev/docs/null-safety
+  /// https://flutter.dev/docs/development/accessibility-and-localization/internationalization
+
+
+   _selectDate(BuildContext context) async {
+
+    DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate:  DateTime(2018),
+      lastDate:  DateTime(2025),
+      locale: const Locale('es', 'ES')
+    );
+
+    if ( picked != null ) {
+      setState(() {
+          _fecha = picked.toString();
+          _inputFieldDateController.text = _fecha;
+      });
+    }
 
   }
 
-  // List<DropdownMenuItem<String>> getOpcionesDropdown() {
-  //
-  //   // List<DropdownMenuItem<String>> lista = new List();
-  //
-  //   _poderes.forEach( (poder){
-  //
-  //     lista.add( DropdownMenuItem(
-  //       child: Text(poder),
-  //       value: poder,
-  //     ));
-  //
-  //   });
-  //
-  //   return lista;
-  //
-  // }
-
-  // Widget _crearDropdown() {
-  //
-  //   return Row(
-  //     children: <Widget>[
-  //       Icon(Icons.select_all),
-  //       SizedBox(width: 30.0),
-  //       Expanded(
-  //         child: DropdownButton(
-  //           value: _opcionSeleccionada,
-  //           items: getOpcionesDropdown(),
-  //           onChanged: (opt) {
-  //             setState(() {
-  //               _opcionSeleccionada = opt;
-  //             });
-  //           },
-  //         ),
-  //       )
-  //
-  //     ],
-  //   );
-  //
-  //
-  //
-  //
-  //
-  // }
 
 
+  /// 7. https://api.flutter.dev/flutter/material/DropdownButton-class.html
+  Widget _crearDropdown() {
 
+
+    return DropdownButton<dynamic>(
+        items:getOpcionesDrop(),
+      icon: const Icon(Icons.arrow_downward),
+      iconSize: 24,
+      elevation: 16,
+      style: const TextStyle(color: Colors.deepPurple),
+      underline: Container(
+        height: 2,
+        color: Colors.deepPurpleAccent,
+      ),
+         onChanged:  (opt){
+          print(opt);
+      },
+
+    );
+
+  }
+  List<DropdownMenuItem<String>> getOpcionesDrop() {
+
+    //si usan = new List(); dara error, reeemplazenlo solo por un arreglo vació
+    //y eso debería de solucionar su problema
+    List<DropdownMenuItem<String>> lista = [];
+    _poderes.forEach((poder){
+
+      lista.add(DropdownMenuItem(
+        child: Text(poder),
+        value: poder,
+      ));
+    });
+    return lista;
+  }
+
+
+  // 2.
   Widget _crearPersona() {
 
     return ListTile(
@@ -211,5 +216,8 @@ class _InputPageState extends State<InputPage> {
     );
 
   }
+
+
+
 
 }
