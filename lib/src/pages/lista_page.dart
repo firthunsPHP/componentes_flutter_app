@@ -33,7 +33,7 @@ class _SliderPageState extends State<SliderPage> {
     );
   }
 
-
+/// 1.
   Widget _crearSlider() {
 
     return Slider(
@@ -54,21 +54,22 @@ class _SliderPageState extends State<SliderPage> {
 
   }
 
+  /// 3.
   Widget _checkBox() {
 
     // return Checkbox(
     //   value: _bloquearCheck,
-    //   onChanged: (valor){ 
+    //   onChanged: (valor){
     //     setState(() {
     //       _bloquearCheck = valor;
     //     });
     //   },
     // );
-
+    //
     return CheckboxListTile(
       title: Text('Bloquear slider'),
       value: _bloquearCheck,
-      onChanged: (valor){ 
+      onChanged: (valor){
         setState(() {
           // _bloquearCheck = valor;
         });
@@ -83,7 +84,7 @@ class _SliderPageState extends State<SliderPage> {
     return SwitchListTile(
       title: Text('Bloquear slider'),
       value: _bloquearCheck,
-      onChanged: (valor){ 
+      onChanged: (valor){
         setState(() {
           _bloquearCheck = valor;
         });
@@ -92,7 +93,33 @@ class _SliderPageState extends State<SliderPage> {
     );
   }
 
+/// *******************
+//   Widget _crearCheckbox() {
+//     return CheckboxListTile(
+//         value: _bloquearSlider,
+//         title: Text('Bloquear Slider'),
+//         onChanged: (valor) {
+//           setState(() {
+//             _bloquearSlider = valor!;
+//           });
+//         });
+//   }
+//
+//   Widget _crearSwitch() {
+//     return SwitchListTile(
+//         value: _bloquearSlider,
+//         title: Text('Bloquear Slider'),
+//         onChanged: (valor) {
+//           setState(() {
+//             _bloquearSlider = valor;
+//           });
+//         });
+//   }
+  ///*************
 
+
+
+/// 2.
   Widget _crearImagen() {
 
     return Image(

@@ -142,7 +142,6 @@ class _InputPageState extends State<InputPage> {
   }
 
 
-
   /// 6.
   /// https://flutter.dev/docs/null-safety
   /// https://flutter.dev/docs/development/accessibility-and-localization/internationalization
@@ -166,8 +165,6 @@ class _InputPageState extends State<InputPage> {
     }
 
   }
-
-
 
   /// 7. https://api.flutter.dev/flutter/material/DropdownButton-class.html
   Widget _crearDropdown() {
@@ -204,7 +201,6 @@ class _InputPageState extends State<InputPage> {
     });
     return lista;
   }
-
 
   // 2.
   Widget _crearPersona() {

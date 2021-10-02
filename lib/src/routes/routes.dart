@@ -12,7 +12,7 @@ import 'package:componentes_flutter_app/src/pages/animated_container.dart';
 
 import 'package:componentes_flutter_app/src/pages/input_page.dart';
 import 'package:componentes_flutter_app/src/pages/listview_page.dart';
-import 'package:componentes_flutter_app/src/pages/slider_page.dart';
+import 'package:componentes_flutter_app/src/pages/lista_page.dart';
 
 
 Map<String, WidgetBuilder> getApplicationRoutes(){

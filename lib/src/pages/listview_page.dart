@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'dart:async';
 
-
+/// https://pub.dev/documentation/flutter_paginator/latest/
 class ListaPage extends StatefulWidget {
   @override
   _ListaPageState createState() => _ListaPageState();
@@ -10,9 +10,9 @@ class ListaPage extends StatefulWidget {
 
 class _ListaPageState extends State<ListaPage> {
 
-  ScrollController _scrollController = new ScrollController();
+  final ScrollController _scrollController =  ScrollController();
 
-  // List<int> _listaNumeros = new List();
+  final List<int> _listaNumeros = [];
   int _ultimoItem = 0;
   bool _isLoading = false;
 
@@ -21,11 +21,11 @@ class _ListaPageState extends State<ListaPage> {
     super.initState();
     _agregar10();
 
-
     _scrollController.addListener(() {
-
+    // se va a diisparar cada vez que se mueva el scroll
+    //   print('SCROLL!!!!.......');
       if( _scrollController.position.pixels == _scrollController.position.maxScrollExtent ) {
-        // _agregar10();
+        _agregar10();
         fetchData();
       }
 
@@ -49,7 +49,7 @@ class _ListaPageState extends State<ListaPage> {
       ),
       body: Stack(
         children: <Widget>[
-            // _crearLista(),
+            _crearLista(),
             _crearLoading()
         ],
       )
@@ -58,35 +58,38 @@ class _ListaPageState extends State<ListaPage> {
     );
   }
 
-  // Widget _crearLista() {
-  //
-  //   return RefreshIndicator(
-  //
-  //       onRefresh: obtenerPagina1,
-  //
-  //       child: ListView.builder(
-  //       controller: _scrollController,
-  //       itemCount: _listaNumeros.length,
-  //       itemBuilder: (BuildContext context, int index ){
-  //
-  //         final imagen = _listaNumeros[index];
-  //
-  //         return FadeInImage(
-  //           image: NetworkImage('https://picsum.photos/500/300/?image=$imagen'),
-  //           placeholder: AssetImage('assets/jar-loading.gif'),
-  //         );
-  //       },
-  //     ),
-  //   );
-  //
-  // }
+  /// 1.
+  Widget _crearLista() {
 
-  Future<Null> obtenerPagina1() async {
+    /** el metodo RefreshIndicator sale de de selleccionar ListvIEW.BUILDER Y CON EL BOTON DEL RATON
+     * SELECCIONA LA PROPIEDAD 'Wrap with new widget '**/
+    return RefreshIndicator(
 
-    final duration = new Duration( seconds: 2 );
-    new Timer( duration, () {
+        onRefresh: obtenerPagina1,
 
-      // _listaNumeros.clear();
+        child: ListView.builder(
+        controller: _scrollController,
+        itemCount: _listaNumeros.length,
+        itemBuilder: (BuildContext context, int index ){
+
+          final imagen = _listaNumeros[index];
+
+          return FadeInImage(
+            image: NetworkImage('https://picsum.photos/500/300/?image=$imagen'),
+            placeholder: AssetImage('assets/jar-loading.gif'),
+          );
+        },
+      ),
+    );
+
+  }
+/// pull to refresh
+  Future<void> obtenerPagina1() async {
+
+    const duration =   Duration( seconds: 2 );
+     Timer( duration, () {
+
+      _listaNumeros.clear();
       _ultimoItem++;
       _agregar10();
 
@@ -97,12 +100,12 @@ class _ListaPageState extends State<ListaPage> {
   }
 
 
-
+/// 2. infiniti scroll
   void _agregar10() {
 
     for (var i = 1; i < 10; i++) {
       _ultimoItem++;
-      // _listaNumeros.add( _ultimoItem );
+      _listaNumeros.add( _ultimoItem );
     }
 
     setState(() {});
@@ -110,17 +113,17 @@ class _ListaPageState extends State<ListaPage> {
   }
 
 
-
-  Future<Null> fetchData() async {
+/// INIFITE SCROLL CON FUTURES
+ Future fetchData() async {
 
     _isLoading = true;
     setState(() {});
 
-    final duration = new Duration( seconds: 2 );
-    // return new Timer( duration, respuestaHTTP );
+    const duration =   Duration( seconds: 2 );
+    return  Timer( duration, respuestaHTTP );
 
   }
-
+  /// INIFITE SCROLL CON FUTURES
   void respuestaHTTP() {
 
     _isLoading = false;
@@ -128,11 +131,8 @@ class _ListaPageState extends State<ListaPage> {
     _scrollController.animateTo(
       _scrollController.position.pixels + 100,
       curve: Curves.fastOutSlowIn,
-      duration: Duration( milliseconds: 250)
+      duration: const Duration( milliseconds: 250)
     );
-
-
-
     _agregar10();
 
   }
@@ -146,11 +146,11 @@ class _ListaPageState extends State<ListaPage> {
         children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
+            children: const <Widget>[
               CircularProgressIndicator()
             ],
           ),
-          SizedBox( height: 15.0)
+          const SizedBox( height: 15.0)
         ],
       );
       
@@ -163,3 +163,4 @@ class _ListaPageState extends State<ListaPage> {
   }
 
 }
+
